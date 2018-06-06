@@ -12,6 +12,7 @@
                     @close="handleClose"
                     background-color="#545c64"
                     text-color="#fff"
+                    :collapse="isCollapse"
                     active-text-color="#ffd04b">
                     <el-submenu index="1">
                       <template slot="title">
@@ -25,7 +26,7 @@
                     <el-submenu index="2">
                       <template slot="title">
                         <i class="el-icon-location"></i>
-                        <span>导航一</span>
+                        <span>权限管理</span>
                       </template>
                       <el-menu-item-group>
                         <el-menu-item class="el-icon-menu" index="2-1">选项1</el-menu-item>
@@ -35,7 +36,7 @@
                     <el-submenu index="3">
                       <template slot="title">
                         <i class="el-icon-location"></i>
-                        <span>导航二</span>
+                        <span>商品管理</span>
                       </template>
                       <el-menu-item-group>
                         <el-menu-item class="el-icon-menu" index="3-1">选项1</el-menu-item>
@@ -45,11 +46,21 @@
                     <el-submenu index="4">
                       <template slot="title">
                         <i class="el-icon-location"></i>
-                        <span>导航三</span>
+                        <span>订单管理</span>
                       </template>
                       <el-menu-item-group>
                         <el-menu-item class="el-icon-menu" index="4-1">选项1</el-menu-item>
                         <el-menu-item class="el-icon-menu" index="4-2">选项2</el-menu-item>
+                      </el-menu-item-group>
+                    </el-submenu>
+                    <el-submenu index="5">
+                      <template slot="title">
+                        <i class="el-icon-location"></i>
+                        <span>订单管理</span>
+                      </template>
+                      <el-menu-item-group>
+                        <el-menu-item class="el-icon-menu" index="5-1">选项1</el-menu-item>
+                        <el-menu-item class="el-icon-menu" index="5-2">选项2</el-menu-item>
                       </el-menu-item-group>
                     </el-submenu>
                   </el-menu>
@@ -57,20 +68,29 @@
             </el-aside>
       
             <el-container>
-                <!-- 顶部 -->
-                <el-header><div class="system-title">电商后台管理系统</div></el-header>
-                <!-- 内容区域 -->
-                <el-main>Main</el-main>
+                <!-- header -->
+                <el-header>
+                    <i class="el-icon-circle-plus-outline toggle-btn" @click=toggleClapse></i>
+                    <div class="system-title">电商后台管理系统</div>
+                    <span class="welcome">
+                      您好,xxx
+                    </span>
+                    <el-button type="text" @click="logout">退出</el-button>
+                </el-header>
+                <!-- 中间内容区域 -->
+                <el-main>
+                  <router-view></router-view>
+                </el-main>
             </el-container>
         </el-container>
   </div>
 </template>
 <script>
- 
+ import {getUserList} from '../api/index'
 export default {
   data() {
     return {
-      
+      isCollapse: false
     };
   },
   mounted(){
@@ -85,6 +105,15 @@ export default {
       },
       handleClose(key, keyPath) {
         console.log(key, keyPath);
+      },
+      toggleClapse(){
+        this.isCollapse =!this.isCollapse
+      },
+      // 实现点击退出按钮,退出home页面,并清空localstorge里的token数据,跳转到登录页面
+      logout() {
+        // 运用编程式导航进行跳转
+        this.$router.push('/login')
+        localStorage.removeItem('myToken');
       }
   }
 }
