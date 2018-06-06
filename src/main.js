@@ -7,8 +7,8 @@ import router from "./router/router.js"
 // 引入element-ui
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-
-// 引用路由
+// 引入store文件,整个应用程序中都会有store
+import store from '@/store/store.js'
 
 // 引用element-ui 
 Vue.use(ElementUI)
@@ -33,7 +33,10 @@ router.beforeEach((to,from,next)=>{
 })
 new Vue({
   components:{App},
+  // 注入路由
   router,
+  // 注入store
+  store,
   render: h => h(App),
   // 注入路由
 }).$mount('#app')

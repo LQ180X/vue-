@@ -44,12 +44,15 @@
                         checkUser(this.form).then(res=>{
                             console.log(res);
                             console.log(res.meta.status);
-                            // 如果跳转成功,将token保存在localStorage里面
+                            // 如果跳转成功,将token保存在localStorage里面,将username保存到vue的state中
                             if(res.meta.status===200){
                                  localStorage.setItem('myToken',res.data.token)
+                                 localStorage.setItem('username',res.data.username)
                                 this.$message(res.meta.msg),                    
                                     // 编程式导航
                                     this.$router.push('/')
+                                    // 获取store里的数据
+                                    this.$store.commit('setUserName',res.data.username)
                                    
                             } else {
                                  this.$message(res.meta.msg)

@@ -73,7 +73,7 @@
                     <i class="el-icon-circle-plus-outline toggle-btn" @click=toggleClapse></i>
                     <div class="system-title">电商后台管理系统</div>
                     <span class="welcome">
-                      您好,xxx
+                      您好,{{$store.state.username}}
                     </span>
                     <el-button type="text" @click="logout">退出</el-button>
                 </el-header>
