@@ -46,11 +46,11 @@
                             console.log(res.meta.status);
                             // 如果跳转成功,将token保存在localStorage里面
                             if(res.meta.status===200){
-                                
+                                 localStorage.setItem('myToken',res.data.token)
                                 this.$message(res.meta.msg),                    
                                     // 编程式导航
                                     this.$router.push('/')
-                                    localStorage.setItem('myToken',res.data.token)
+                                   
                             } else {
                                  this.$message(res.meta.msg)
                             }
